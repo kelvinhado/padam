@@ -18,6 +18,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.kelvinhado.padam.R;
@@ -94,6 +95,13 @@ public class TravelViewMvcImpl implements TravelViewMvc, AdapterView.OnItemSelec
                 .position(to.getLatLng())
                 .title(to.getName()));
         mGoogleMap.addPolyline(polylineOptions);
+
+        // move camera
+        LatLngBounds.Builder builder = new LatLngBounds.Builder();
+        builder.include(from.getLatLng());
+        builder.include(to.getLatLng());
+        LatLngBounds bounds = builder.build();
+        mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));
     }
 
     @Override
@@ -162,7 +170,7 @@ public class TravelViewMvcImpl implements TravelViewMvc, AdapterView.OnItemSelec
             LatLng position = new LatLng(mSelectedAddress.getLatitude(), mSelectedAddress.getLongitude());
             mGoogleMap.addMarker(new MarkerOptions()
                     .position(position)
-                    .title(mContext.getString(R.string.map_marker_title_destination))
+                    .title(mContext.getString(R.string.map_marker_title_departure))
                     .snippet(mSelectedAddress.getName()));
             mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(position, 12));
         }

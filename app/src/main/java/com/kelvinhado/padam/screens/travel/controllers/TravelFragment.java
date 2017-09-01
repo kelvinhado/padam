@@ -74,7 +74,7 @@ public class TravelFragment extends BaseFragment implements TravelViewMvc.Travel
                     public void run() {
                         mViewMvc.showTravelPopupDetalils(result.getDuration(), result.getDistance());
                     }
-                }, 500);
+                }, 1000);
             }
         };
         // Start downloading json data from Google Directions API
