@@ -7,16 +7,20 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.kelvinhado.padam.data.AddressesContract;
 import com.kelvinhado.padam.data.models.Address;
+import com.kelvinhado.padam.network.direction.DownloadTask;
 import com.kelvinhado.padam.screens.common.controllers.BaseFragment;
 import com.kelvinhado.padam.screens.travel.mvcviews.TravelViewMvc;
 import com.kelvinhado.padam.screens.travel.mvcviews.TravelViewMvcImpl;
+
+import static com.kelvinhado.padam.network.direction.utils.DirectionUtils.getDirectionsUrl;
 
 /**
  * Created by kelvin on 01/09/2017.
@@ -29,6 +33,8 @@ public class TravelFragment extends BaseFragment implements TravelViewMvc.Travel
 
     Context mContext;
     TravelViewMvc mViewMvc;
+    Address mDestinationAddress;
+    Address mDepartureAddress;
 
     @Nullable
     @Override
@@ -38,6 +44,9 @@ public class TravelFragment extends BaseFragment implements TravelViewMvc.Travel
         mViewMvc = new TravelViewMvcImpl(mContext, inflater, container);
         mViewMvc.setListener(this);
         getLoaderManager().initLoader(ID_ADDRESSES_LOADER, null, this);
+
+        mDestinationAddress = new Address(0, "46 quai de la Rapée, 75012 Paris", 48.841978, 2.372773700000039);
+
         return mViewMvc.getRootView();
     }
 
@@ -49,7 +58,18 @@ public class TravelFragment extends BaseFragment implements TravelViewMvc.Travel
 
     @Override
     public void onButtonValidatedClicked(Address address) {
-        Toast.makeText(getContext(), address.getName() + address.getLatitude(), Toast.LENGTH_SHORT).show();
+        mDepartureAddress = address;
+        String url = getDirectionsUrl(mDepartureAddress.getLatLng(), mDestinationAddress.getLatLng());
+        Log.d("TAG", url);
+        DownloadTask downloadTask = new DownloadTask() {
+            @Override
+            protected void onPostExecute(PolylineOptions result) {
+                super.onPostExecute(result);
+                mViewMvc.showTravelDetails(mDepartureAddress, mDestinationAddress, result, 0);
+            }
+        };
+        // Start downloading json data from Google Directions API
+        downloadTask.execute(url);
     }
 
     @Override

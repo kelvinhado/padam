@@ -3,6 +3,7 @@ package com.kelvinhado.padam.screens.travel.mvcviews;
 import android.database.Cursor;
 import android.os.Bundle;
 
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.kelvinhado.padam.data.models.Address;
 import com.kelvinhado.padam.screens.common.mvcviews.ViewMvc;
 
@@ -27,7 +28,7 @@ public interface TravelViewMvc extends ViewMvc {
      * @param to arrival location
      * @param duration duration of the travel
      */
-    void showTravelDetails(Address from, Address to, float duration);
+    void showTravelDetails(Address from, Address to, PolylineOptions polyline, float duration);
 
     /**
      * Set a listener that will be notified by this MVC view

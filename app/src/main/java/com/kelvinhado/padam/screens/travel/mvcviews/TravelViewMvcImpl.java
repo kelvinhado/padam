@@ -17,6 +17,7 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.kelvinhado.padam.R;
 import com.kelvinhado.padam.data.AddressesContract;
 import com.kelvinhado.padam.data.models.Address;
@@ -82,8 +83,15 @@ public class TravelViewMvcImpl implements TravelViewMvc, AdapterView.OnItemSelec
     }
 
     @Override
-    public void showTravelDetails(Address from, Address to, float duration) {
-        //TODO show travel details once calculated
+    public void showTravelDetails(Address from, Address to, PolylineOptions polylineOptions, float duration) {
+        mGoogleMap.clear();
+        mGoogleMap.addMarker(new MarkerOptions()
+                .position(from.getLatLng())
+                .title(from.getName()));
+        mGoogleMap.addMarker(new MarkerOptions()
+                .position(to.getLatLng())
+                .title(to.getName()));
+        mGoogleMap.addPolyline(polylineOptions);
     }
 
     @Override
@@ -99,8 +107,8 @@ public class TravelViewMvcImpl implements TravelViewMvc, AdapterView.OnItemSelec
         mAddressesCursor.moveToPosition(pos);
         int idU = mAddressesCursor.getInt(mAddressesCursor.getColumnIndex(AddressesContract.AddressesEntry._ID));
         String name = mAddressesCursor.getString(mAddressesCursor.getColumnIndex(AddressesContract.AddressesEntry.COLUMN_ADDRESS_NAME));
-        Float lat = mAddressesCursor.getFloat(mAddressesCursor.getColumnIndex(AddressesContract.AddressesEntry.COLUMN_ADDRESS_LATITUDE));
-        Float lon = mAddressesCursor.getFloat(mAddressesCursor.getColumnIndex(AddressesContract.AddressesEntry.COLUMN_ADDRESS_LONGITUDE));
+        double lat = mAddressesCursor.getDouble(mAddressesCursor.getColumnIndex(AddressesContract.AddressesEntry.COLUMN_ADDRESS_LATITUDE));
+        double lon = mAddressesCursor.getDouble(mAddressesCursor.getColumnIndex(AddressesContract.AddressesEntry.COLUMN_ADDRESS_LONGITUDE));
         mSelectedAddress = new Address(idU, name, lat, lon);
         animateMapCameraToSelectedAddress();
     }
