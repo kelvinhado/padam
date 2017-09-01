@@ -28,9 +28,9 @@ public class AddressesDbHelper extends SQLiteOpenHelper {
         final String SQL_CREATE_ADDRESSES_TABLE = "CREATE TABLE " +
                 AddressesEntry.TABLE_NAME + " (" +
                 AddressesEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                AddressesEntry.COLUMN_ADDRESS_NAME + " TEXT NOT NULL, " +
-                AddressesEntry.COLUMN_ADDRESS_LATITUDE + " FLOAT NOT NULL, " +
-                AddressesEntry.COLUMN_ADDRESS_LONGITUDE + " FLOAT NOT NULL, " +
+                AddressesEntry.COLUMN_ADDRESS_NAME + " TEXT NOT NULL," +
+                AddressesEntry.COLUMN_ADDRESS_LATITUDE + " REAL NOT NULL," +
+                AddressesEntry.COLUMN_ADDRESS_LONGITUDE + " REAL NOT NULL" +
                 "); ";
         sqLiteDatabase.execSQL(SQL_CREATE_ADDRESSES_TABLE);
     }
