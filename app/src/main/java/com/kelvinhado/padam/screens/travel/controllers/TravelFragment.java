@@ -1,4 +1,4 @@
-package screens.travel.controllers;
+package com.kelvinhado.padam.screens.travel.controllers;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,10 +10,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.kelvinhado.padam.R;
-import com.kelvinhado.padam.common.screens.controllers.BaseFragment;
-
-import screens.travel.mvcviews.TravelViewMvc;
-import screens.travel.mvcviews.TravelViewMvcImpl;
+import com.kelvinhado.padam.screens.common.controllers.BaseFragment;
+import com.kelvinhado.padam.screens.travel.mvcviews.TravelViewMvc;
+import com.kelvinhado.padam.screens.travel.mvcviews.TravelViewMvcImpl;
 
 /**
  * Created by kelvin on 01/09/2017.

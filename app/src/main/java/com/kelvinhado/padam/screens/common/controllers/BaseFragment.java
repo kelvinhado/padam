@@ -1,4 +1,4 @@
-package com.kelvinhado.padam.common.screens.controllers;
+package com.kelvinhado.padam.screens.common.controllers;
 
 import android.app.Activity;
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package screens.travel.mvcviews;
+package com.kelvinhado.padam.screens.travel.mvcviews;
 
 import android.os.Bundle;
 import android.util.Log;

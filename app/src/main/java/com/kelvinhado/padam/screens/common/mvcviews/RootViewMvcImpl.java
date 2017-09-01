@@ -1,4 +1,4 @@
-package com.kelvinhado.padam.common.screens.mvcviews;
+package com.kelvinhado.padam.screens.common.mvcviews;
 
 import android.content.Context;
 import android.os.Bundle;

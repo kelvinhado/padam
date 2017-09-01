@@ -1,4 +1,4 @@
-package com.kelvinhado.padam.common.screens.controllers;
+package com.kelvinhado.padam.screens.common.controllers;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -6,9 +6,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
 import com.kelvinhado.padam.R;
-import com.kelvinhado.padam.common.screens.mvcviews.RootViewMvcImpl;
-
-import screens.travel.controllers.TravelFragment;
+import com.kelvinhado.padam.screens.common.mvcviews.RootViewMvcImpl;
+import com.kelvinhado.padam.screens.travel.controllers.TravelFragment;
 
 public class MainActivity extends AppCompatActivity
         implements BaseFragment.AbstractFragmentCallback {

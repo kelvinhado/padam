@@ -1,9 +1,9 @@
-package screens.travel.mvcviews;
+package com.kelvinhado.padam.screens.travel.mvcviews;
 
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 
-import com.kelvinhado.padam.common.screens.mvcviews.ViewMvc;
+import com.kelvinhado.padam.screens.common.mvcviews.ViewMvc;
 
 /**
  * Created by kelvin on 01/09/2017.

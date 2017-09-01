@@ -1,4 +1,4 @@
-package com.kelvinhado.padam.common.screens.mvcviews;
+package com.kelvinhado.padam.screens.common.mvcviews;
 
 import android.os.Bundle;
 import android.view.View;
@@ -9,7 +9,7 @@ import android.view.View;
 
 public interface ViewMvc {
 
-    public View getRootView();
+    View getRootView();
 
-    public Bundle getViewState();
+    Bundle getViewState();
 }
