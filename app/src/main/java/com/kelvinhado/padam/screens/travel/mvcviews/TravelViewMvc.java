@@ -1,7 +1,7 @@
 package com.kelvinhado.padam.screens.travel.mvcviews;
 
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
+import android.support.v4.widget.SimpleCursorAdapter;
 
 import com.kelvinhado.padam.screens.common.mvcviews.ViewMvc;
 
@@ -18,7 +18,7 @@ public interface TravelViewMvc extends ViewMvc {
      * Populate spinner with stored addresses
      * @param addresses all stored addresses
      */
-    void bindAddressesData(ArrayAdapter<CharSequence> addresses);
+    void bindAddressesData(SimpleCursorAdapter addresses);
 
     /**
      * Show details of a particular travel
@@ -30,11 +30,11 @@ public interface TravelViewMvc extends ViewMvc {
 
     /**
      * Set a listener that will be notified by this MVC view
-     * @param listener listener that should be notified; null to clear
+     * @param listener listener that should be notified;
      */
     void setListener(TravelViewMvcListener listener);
 
-    // Map Management
+    // Map Management_______________________________________________________________________________
     void initializeMap(Bundle savedInstanceState);
 
     void resumeMap();
@@ -42,11 +42,12 @@ public interface TravelViewMvc extends ViewMvc {
     void destroyMap();
 
     void lowMemoryMap();
+    // END Map Management________________________________________________________________________END
+
     interface TravelViewMvcListener {
         /**
          * This callback will be invoked when "VALIDATE" button is being clicked
          */
         void onButtonValidatedClicked(String selectedAddresses);
     }
-    // End Map Management
 }

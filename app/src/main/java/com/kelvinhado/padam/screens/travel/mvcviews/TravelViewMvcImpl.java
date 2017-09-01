@@ -1,12 +1,11 @@
 package com.kelvinhado.padam.screens.travel.mvcviews;
 
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
@@ -57,7 +56,7 @@ public class TravelViewMvcImpl implements TravelViewMvc, AdapterView.OnItemSelec
     }
 
     @Override
-    public void bindAddressesData(ArrayAdapter<CharSequence> addressesAdapter) {
+    public void bindAddressesData(SimpleCursorAdapter addressesAdapter) {
         mSpinnerAddresses.setAdapter(addressesAdapter);
     }
 
@@ -74,15 +73,16 @@ public class TravelViewMvcImpl implements TravelViewMvc, AdapterView.OnItemSelec
     // Spinner item selection_______________________________________________________________________
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id) {
-        mSelectedAddress = (String) adapterView.getItemAtPosition(pos);
-        Log.d("LOL", mSelectedAddress);
+//        // TODO
+//        mSelectedAddress = (String) adapterView.getItemAtPosition(pos);
+//        Log.d("LOL", mSelectedAddress);
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
     }
-    // End spinner item selection___________________________________________________________________
+    // END spinner item selection________________________________________________________________END
 
     // Map Management_______________________________________________________________________________
     @Override
@@ -119,7 +119,7 @@ public class TravelViewMvcImpl implements TravelViewMvc, AdapterView.OnItemSelec
     public void lowMemoryMap() {
         mMapView.onLowMemory();
     }
-    // End Map Management___________________________________________________________________________
+    // End Map Management________________________________________________________________________END
 
     @Override
     public View getRootView() {

@@ -20,6 +20,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <provider
+            android:name="com.kelvinhado.padam.data.AddressesContentProvider"
+            android:authorities="com.kelvinhado.padam"
+            android:exported="false" />
     </application>
 
 </manifest>
