@@ -1,6 +1,5 @@
 package com.kelvinhado.padam.screens.travel.mvcviews;
 
-import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 
@@ -15,12 +14,6 @@ import com.kelvinhado.padam.screens.common.mvcviews.ViewMvc;
  * This interface corresponds to the travel preview and selection
  */
 public interface TravelViewMvc extends ViewMvc {
-
-    /**
-     * Try to avoid this situation but context is required for the cursor adapter
-     * @param context context
-     */
-    void setupViewWithContext(Context context);
 
     /**
      * Populate spinner with stored addresses

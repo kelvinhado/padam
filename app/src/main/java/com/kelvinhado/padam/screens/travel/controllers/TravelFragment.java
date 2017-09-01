@@ -35,8 +35,7 @@ public class TravelFragment extends BaseFragment implements TravelViewMvc.Travel
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         mContext = getContext();
-        mViewMvc = new TravelViewMvcImpl(inflater, container);
-        mViewMvc.setupViewWithContext(mContext);
+        mViewMvc = new TravelViewMvcImpl(mContext, inflater, container);
         mViewMvc.setListener(this);
         getLoaderManager().initLoader(ID_ADDRESSES_LOADER, null, this);
         return mViewMvc.getRootView();
@@ -50,7 +49,7 @@ public class TravelFragment extends BaseFragment implements TravelViewMvc.Travel
 
     @Override
     public void onButtonValidatedClicked(Address address) {
-        Toast.makeText(getContext(), address.getName(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), address.getName() + address.getLatitude(), Toast.LENGTH_SHORT).show();
     }
 
     @Override

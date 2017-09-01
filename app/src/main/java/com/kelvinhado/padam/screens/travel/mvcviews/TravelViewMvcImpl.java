@@ -11,9 +11,12 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Spinner;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.kelvinhado.padam.R;
 import com.kelvinhado.padam.data.AddressesContract;
 import com.kelvinhado.padam.data.models.Address;
@@ -27,6 +30,7 @@ import com.kelvinhado.padam.data.models.Address;
  */
 public class TravelViewMvcImpl implements TravelViewMvc, AdapterView.OnItemSelectedListener, OnMapReadyCallback {
 
+    private Context mContext;
     private View mRootView;
     private TravelViewMvcListener mListener;
     private SimpleCursorAdapter mAdapter;
@@ -39,7 +43,8 @@ public class TravelViewMvcImpl implements TravelViewMvc, AdapterView.OnItemSelec
     private GoogleMap mGoogleMap;
 
 
-    public TravelViewMvcImpl(LayoutInflater inflater, ViewGroup container) {
+    public TravelViewMvcImpl(Context context, LayoutInflater inflater, ViewGroup container) {
+        mContext = context;
         mRootView = inflater.inflate(R.layout.mvc_view_fragment_travel, container, false);
         initializeViews();
 
@@ -48,22 +53,14 @@ public class TravelViewMvcImpl implements TravelViewMvc, AdapterView.OnItemSelec
             public void onClick(View view) {
                 if (mListener != null && mSelectedAddress != null) {
                     mListener.onButtonValidatedClicked(mSelectedAddress);
+                    animateMapCameraToSelectedAddress();
                 }
             }
         });
 
         mSpinnerAddresses.setOnItemSelectedListener(this);
-    }
-
-    private void initializeViews() {
-        mSpinnerAddresses = (Spinner) mRootView.findViewById(R.id.sp_addresses);
-        mBtnValidate = (Button) mRootView.findViewById(R.id.bt_validate);
-    }
-
-    @Override
-    public void setupViewWithContext(Context context) {
         mAdapter = new SimpleCursorAdapter(
-                context,
+                mContext,
                 android.R.layout.simple_spinner_item,
                 null,
                 new String[]{AddressesContract.AddressesEntry.COLUMN_ADDRESS_NAME},
@@ -71,6 +68,11 @@ public class TravelViewMvcImpl implements TravelViewMvc, AdapterView.OnItemSelec
                 0);
         mAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         mSpinnerAddresses.setAdapter(mAdapter);
+    }
+
+    private void initializeViews() {
+        mSpinnerAddresses = (Spinner) mRootView.findViewById(R.id.sp_addresses);
+        mBtnValidate = (Button) mRootView.findViewById(R.id.bt_validate);
     }
 
     @Override
@@ -100,6 +102,7 @@ public class TravelViewMvcImpl implements TravelViewMvc, AdapterView.OnItemSelec
         Float lat = mAddressesCursor.getFloat(mAddressesCursor.getColumnIndex(AddressesContract.AddressesEntry.COLUMN_ADDRESS_LATITUDE));
         Float lon = mAddressesCursor.getFloat(mAddressesCursor.getColumnIndex(AddressesContract.AddressesEntry.COLUMN_ADDRESS_LONGITUDE));
         mSelectedAddress = new Address(idU, name, lat, lon);
+        animateMapCameraToSelectedAddress();
     }
 
     @Override
@@ -119,14 +122,26 @@ public class TravelViewMvcImpl implements TravelViewMvc, AdapterView.OnItemSelec
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        this.mGoogleMap = googleMap;
+        mGoogleMap = googleMap;
         //custom settings
-        this.mGoogleMap.getUiSettings().setMapToolbarEnabled(false);
-        this.mGoogleMap.getUiSettings().setZoomControlsEnabled(false);
-        this.mGoogleMap.getUiSettings().setMyLocationButtonEnabled(true);
-        this.mGoogleMap.setMaxZoomPreference(18);
+        mGoogleMap.getUiSettings().setMapToolbarEnabled(false);
+        mGoogleMap.getUiSettings().setZoomControlsEnabled(false);
+        mGoogleMap.getUiSettings().setMyLocationButtonEnabled(true);
+        mGoogleMap.setMaxZoomPreference(18);
+        LatLng position = new LatLng(48.866667, 2.333333);
+        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 10));
+    }
 
-        /* TODO add markers and stuffs */
+    public void animateMapCameraToSelectedAddress() {
+        mGoogleMap.clear();
+        if (mSelectedAddress != null) {
+            LatLng position = new LatLng(mSelectedAddress.getLatitude(), mSelectedAddress.getLongitude());
+            mGoogleMap.addMarker(new MarkerOptions()
+                    .position(position)
+                    .title(mContext.getString(R.string.map_marker_title_destination))
+                    .snippet(mSelectedAddress.getName()));
+            mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(position, 12));
+        }
     }
 
     @Override
