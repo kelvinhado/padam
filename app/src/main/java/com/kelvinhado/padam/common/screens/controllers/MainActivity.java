@@ -8,7 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.kelvinhado.padam.R;
 import com.kelvinhado.padam.common.screens.mvcviews.RootViewMvcImpl;
 
-import screens.map.controllers.TravelFragment;
+import screens.travel.controllers.TravelFragment;
 
 public class MainActivity extends AppCompatActivity
         implements BaseFragment.AbstractFragmentCallback {

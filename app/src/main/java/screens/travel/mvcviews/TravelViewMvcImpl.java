@@ -1,4 +1,4 @@
-package screens.map.mvcviews;
+package screens.travel.mvcviews;
 
 import android.os.Bundle;
 import android.util.Log;

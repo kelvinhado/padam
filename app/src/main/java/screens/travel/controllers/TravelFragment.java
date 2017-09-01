@@ -1,4 +1,4 @@
-package screens.map.controllers;
+package screens.travel.controllers;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -12,8 +12,8 @@ import android.widget.Toast;
 import com.kelvinhado.padam.R;
 import com.kelvinhado.padam.common.screens.controllers.BaseFragment;
 
-import screens.map.mvcviews.TravelViewMvc;
-import screens.map.mvcviews.TravelViewMvcImpl;
+import screens.travel.mvcviews.TravelViewMvc;
+import screens.travel.mvcviews.TravelViewMvcImpl;
 
 /**
  * Created by kelvin on 01/09/2017.
