@@ -10,6 +10,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.kelvinhado.padam.R;
 
 /**
@@ -19,7 +22,7 @@ import com.kelvinhado.padam.R;
 /**
  * An implementation of {@link TravelViewMvc} interface
  */
-public class TravelViewMvcImpl implements TravelViewMvc, AdapterView.OnItemSelectedListener {
+public class TravelViewMvcImpl implements TravelViewMvc, AdapterView.OnItemSelectedListener, OnMapReadyCallback {
 
     private View mRootView;
     private TravelViewMvcListener mListener;
@@ -27,6 +30,9 @@ public class TravelViewMvcImpl implements TravelViewMvc, AdapterView.OnItemSelec
 
     private Spinner mSpinnerAddresses;
     private Button mBtnValidate;
+    private MapView mMapView;
+    private GoogleMap mGoogleMap;
+
 
     public TravelViewMvcImpl(LayoutInflater inflater, ViewGroup container) {
         mRootView = inflater.inflate(R.layout.mvc_view_fragment_travel, container, false);
@@ -65,7 +71,7 @@ public class TravelViewMvcImpl implements TravelViewMvc, AdapterView.OnItemSelec
         mListener = listener;
     }
 
-    // Spinner item selection
+    // Spinner item selection_______________________________________________________________________
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id) {
         mSelectedAddress = (String) adapterView.getItemAtPosition(pos);
@@ -76,7 +82,44 @@ public class TravelViewMvcImpl implements TravelViewMvc, AdapterView.OnItemSelec
     public void onNothingSelected(AdapterView<?> adapterView) {
 
     }
-    // End spinner item selection
+    // End spinner item selection___________________________________________________________________
+
+    // Map Management_______________________________________________________________________________
+    @Override
+    public void initializeMap(Bundle savedInstanceState) {
+        mMapView = (MapView) mRootView.findViewById(R.id.mv_google_mapview);
+        mMapView.onCreate(savedInstanceState);
+        mMapView.onResume();
+        mMapView.getMapAsync(this);
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        this.mGoogleMap = googleMap;
+        //custom settings
+        this.mGoogleMap.getUiSettings().setMapToolbarEnabled(false);
+        this.mGoogleMap.getUiSettings().setZoomControlsEnabled(false);
+        this.mGoogleMap.getUiSettings().setMyLocationButtonEnabled(true);
+        this.mGoogleMap.setMaxZoomPreference(18);
+
+        /* TODO add markers and stuffs */
+    }
+
+    @Override
+    public void resumeMap() {
+        mMapView.onResume();
+    }
+
+    @Override
+    public void destroyMap() {
+        mMapView.onDestroy();
+    }
+
+    @Override
+    public void lowMemoryMap() {
+        mMapView.onLowMemory();
+    }
+    // End Map Management___________________________________________________________________________
 
     @Override
     public View getRootView() {

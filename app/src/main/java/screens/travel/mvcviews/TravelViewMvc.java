@@ -1,5 +1,6 @@
 package screens.travel.mvcviews;
 
+import android.os.Bundle;
 import android.widget.ArrayAdapter;
 
 import com.kelvinhado.padam.common.screens.mvcviews.ViewMvc;
@@ -33,10 +34,19 @@ public interface TravelViewMvc extends ViewMvc {
      */
     void setListener(TravelViewMvcListener listener);
 
+    // Map Management
+    void initializeMap(Bundle savedInstanceState);
+
+    void resumeMap();
+
+    void destroyMap();
+
+    void lowMemoryMap();
     interface TravelViewMvcListener {
         /**
          * This callback will be invoked when "VALIDATE" button is being clicked
          */
         void onButtonValidatedClicked(String selectedAddresses);
     }
+    // End Map Management
 }

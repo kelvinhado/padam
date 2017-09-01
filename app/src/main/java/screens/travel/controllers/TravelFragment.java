@@ -35,6 +35,12 @@ public class TravelFragment extends BaseFragment implements TravelViewMvc.Travel
         return mViewMvc.getRootView();
     }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mViewMvc.initializeMap(savedInstanceState);
+    }
+
     private ArrayAdapter<CharSequence> getAddressesAdapter() {
         //get from strings resources
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(mContext,
@@ -48,5 +54,21 @@ public class TravelFragment extends BaseFragment implements TravelViewMvc.Travel
         Toast.makeText(getContext(), selectedAddresses, Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void onResume() {
+        mViewMvc.resumeMap();
+        super.onResume();
+    }
 
+    @Override
+    public void onLowMemory() {
+        mViewMvc.lowMemoryMap();
+        super.onLowMemory();
+    }
+
+    @Override
+    public void onDestroy() {
+        mViewMvc.destroyMap();
+        super.onDestroy();
+    }
 }

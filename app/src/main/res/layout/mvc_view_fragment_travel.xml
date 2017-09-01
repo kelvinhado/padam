@@ -22,4 +22,17 @@
         android:layout_below="@+id/sp_addresses"
         android:layout_marginTop="@dimen/common_view_space"
         android:text="@string/button_label_validate" />
+
+    <com.google.android.gms.maps.MapView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/mv_google_mapview"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@+id/bt_validate"
+        android:layout_marginEnd="@dimen/common_view_side_margin"
+        android:layout_marginStart="@dimen/common_view_side_margin"
+        android:layout_marginTop="@dimen/common_view_space"
+        android:apiKey="@string/gmaps_api_key"
+        android:clickable="true"
+        android:enabled="true" />
+
 </RelativeLayout>
