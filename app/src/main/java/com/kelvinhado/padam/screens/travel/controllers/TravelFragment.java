@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.gms.maps.model.PolylineOptions;
 import com.kelvinhado.padam.data.AddressesContract;
 import com.kelvinhado.padam.data.models.Address;
 import com.kelvinhado.padam.network.direction.DownloadTask;
@@ -63,9 +62,13 @@ public class TravelFragment extends BaseFragment implements TravelViewMvc.Travel
         Log.d("TAG", url);
         DownloadTask downloadTask = new DownloadTask() {
             @Override
-            protected void onPostExecute(PolylineOptions result) {
+            protected void onPostExecute(DownloadTaskResults result) {
                 super.onPostExecute(result);
-                mViewMvc.showTravelDetails(mDepartureAddress, mDestinationAddress, result, 0);
+                mViewMvc.showTravelDetails(
+                        mDepartureAddress,
+                        mDestinationAddress,
+                        result.getPolylineOptions(),
+                        result.getDuration(), );
             }
         };
         // Start downloading json data from Google Directions API

@@ -83,7 +83,7 @@ public class TravelViewMvcImpl implements TravelViewMvc, AdapterView.OnItemSelec
     }
 
     @Override
-    public void showTravelDetails(Address from, Address to, PolylineOptions polylineOptions, float duration) {
+    public void showTravelDetails(Address from, Address to, PolylineOptions polylineOptions, String duration, String distance) {
         mGoogleMap.clear();
         mGoogleMap.addMarker(new MarkerOptions()
                 .position(from.getLatLng())

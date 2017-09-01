@@ -98,4 +98,22 @@ public class DirectionsJSONParser {
 
         return poly;
     }
+
+    public String[] parseDurationDistance(JSONObject jsonObject) {
+        String duration = "";
+        String distance = "";
+
+        try {
+            JSONArray jRoutes = jsonObject.getJSONArray("routes");
+            JSONArray jLegs = ((JSONObject) jRoutes.get(0)).getJSONArray("legs");
+            JSONObject jDuration = jLegs.getJSONObject(0).getJSONObject("duration");
+            JSONObject jDistance = jLegs.getJSONObject(0).getJSONObject("distance");
+            duration = jDuration.getString("text");
+            distance = jDistance.getString("text");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return new String[]{duration, distance};
+    }
 }
