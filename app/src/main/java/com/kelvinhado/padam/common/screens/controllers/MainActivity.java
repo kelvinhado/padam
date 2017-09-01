@@ -1,12 +1,14 @@
 package com.kelvinhado.padam.common.screens.controllers;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
 import com.kelvinhado.padam.R;
 import com.kelvinhado.padam.common.screens.mvcviews.RootViewMvcImpl;
+
+import screens.map.controllers.TravelFragment;
 
 public class MainActivity extends AppCompatActivity
         implements BaseFragment.AbstractFragmentCallback {
@@ -25,7 +27,7 @@ public class MainActivity extends AppCompatActivity
 
         // Show the default fragment if the application is not restored
         if (savedInstanceState == null) {
-            //replaceFragment(SmsAllAllFragment.class, false, null);
+            replaceFragment(TravelFragment.class, false, null);
         }
     }
 

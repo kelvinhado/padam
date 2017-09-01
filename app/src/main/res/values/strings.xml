@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Padam</string>
+    <string name="button_label_validate">Validate</string>
+
+
+    <string-array name="array_testaddresses">
+        <item>4 rue Fosh, Paris</item>
+        <item>8 rue des galeries, Paris</item>
+        <item>14 rue Andrée, Paris</item>
+    </string-array>
 </resources>

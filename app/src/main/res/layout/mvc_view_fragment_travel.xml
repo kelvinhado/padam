@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
+    <Spinner
+        android:id="@+id/sp_addresses"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_view_height"
+        android:layout_marginEnd="@dimen/common_view_side_margin"
+        android:layout_marginStart="@dimen/common_view_side_margin"
+        android:layout_marginTop="@dimen/common_first_view_top_margin" />
+
+    <Button
+        android:id="@+id/bt_validate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/sp_addresses"
+        android:layout_alignLeft="@+id/sp_addresses"
+        android:layout_alignRight="@+id/sp_addresses"
+        android:layout_alignStart="@+id/sp_addresses"
+        android:layout_below="@+id/sp_addresses"
+        android:layout_marginTop="@dimen/common_view_space"
+        android:text="@string/button_label_validate" />
 </RelativeLayout>

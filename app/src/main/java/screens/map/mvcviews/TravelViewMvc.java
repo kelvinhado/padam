@@ -1,5 +1,7 @@
 package screens.map.mvcviews;
 
+import android.widget.ArrayAdapter;
+
 import com.kelvinhado.padam.common.screens.mvcviews.ViewMvc;
 
 /**
@@ -11,18 +13,11 @@ import com.kelvinhado.padam.common.screens.mvcviews.ViewMvc;
  */
 public interface TravelViewMvc extends ViewMvc {
 
-    interface TravelViewMvcListener {
-        /**
-         * This callback will be invoked when "VALIDATE" button is being clicked
-         */
-        void onButtonValidatedClicked(String selectedAddresses);
-    }
-
     /**
      * Populate spinner with stored addresses
-     * @param storedAddresses all stored addresses
+     * @param addresses all stored addresses
      */
-    void bindAddressesData(String[] storedAddresses);
+    void bindAddressesData(ArrayAdapter<CharSequence> addresses);
 
     /**
      * Show details of a particular travel
@@ -37,4 +32,11 @@ public interface TravelViewMvc extends ViewMvc {
      * @param listener listener that should be notified; null to clear
      */
     void setListener(TravelViewMvcListener listener);
+
+    interface TravelViewMvcListener {
+        /**
+         * This callback will be invoked when "VALIDATE" button is being clicked
+         */
+        void onButtonValidatedClicked(String selectedAddresses);
+    }
 }
