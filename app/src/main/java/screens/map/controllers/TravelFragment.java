@@ -45,7 +45,7 @@ public class TravelFragment extends BaseFragment implements TravelViewMvc.Travel
 
     @Override
     public void onButtonValidatedClicked(String selectedAddresses) {
-        Toast.makeText(getContext(), "hi !", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), selectedAddresses, Toast.LENGTH_SHORT).show();
     }
 
 
