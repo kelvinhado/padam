@@ -7,13 +7,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.kelvinhado.padam.data.AddressesContract;
+import com.kelvinhado.padam.data.models.Address;
 import com.kelvinhado.padam.screens.common.controllers.BaseFragment;
 import com.kelvinhado.padam.screens.travel.mvcviews.TravelViewMvc;
 import com.kelvinhado.padam.screens.travel.mvcviews.TravelViewMvcImpl;
@@ -25,19 +25,20 @@ import com.kelvinhado.padam.screens.travel.mvcviews.TravelViewMvcImpl;
 public class TravelFragment extends BaseFragment implements TravelViewMvc.TravelViewMvcListener,
         LoaderManager.LoaderCallbacks<Cursor> {
 
+    private static final int ID_ADDRESSES_LOADER = 1993;
+
     Context mContext;
     TravelViewMvc mViewMvc;
-    SimpleCursorAdapter mAdapter;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         mContext = getContext();
-        initCursorLoader();
         mViewMvc = new TravelViewMvcImpl(inflater, container);
+        mViewMvc.setupViewWithContext(mContext);
         mViewMvc.setListener(this);
-        mViewMvc.bindAddressesData(mAdapter);
+        getLoaderManager().initLoader(ID_ADDRESSES_LOADER, null, this);
         return mViewMvc.getRootView();
     }
 
@@ -48,8 +49,8 @@ public class TravelFragment extends BaseFragment implements TravelViewMvc.Travel
     }
 
     @Override
-    public void onButtonValidatedClicked(String selectedAddresses) {
-        Toast.makeText(getContext(), selectedAddresses, Toast.LENGTH_SHORT).show();
+    public void onButtonValidatedClicked(Address address) {
+        Toast.makeText(getContext(), address.getName(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -71,19 +72,6 @@ public class TravelFragment extends BaseFragment implements TravelViewMvc.Travel
     }
 
     // Fetching data from the content provider______________________________________________________
-
-    private void initCursorLoader() {
-        getLoaderManager().initLoader(0, null, this);
-        mAdapter = new SimpleCursorAdapter(
-                mContext,
-                android.R.layout.simple_spinner_item,
-                null,
-                new String[]{AddressesContract.AddressesEntry.COLUMN_ADDRESS_NAME},
-                new int[]{android.R.id.text1},
-                0);
-        mAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
-    }
-
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         CursorLoader cursorLoader = new CursorLoader(
@@ -98,12 +86,12 @@ public class TravelFragment extends BaseFragment implements TravelViewMvc.Travel
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        mAdapter.swapCursor(data);
+        mViewMvc.bindAddressesData(data);
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-        mAdapter.swapCursor(null);
+        mViewMvc.bindAddressesData(null);
     }
 
     // END Fetching data from the content provider_______________________________________________END

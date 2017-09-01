@@ -1,8 +1,10 @@
 package com.kelvinhado.padam.screens.travel.mvcviews;
 
+import android.content.Context;
+import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v4.widget.SimpleCursorAdapter;
 
+import com.kelvinhado.padam.data.models.Address;
 import com.kelvinhado.padam.screens.common.mvcviews.ViewMvc;
 
 /**
@@ -15,10 +17,16 @@ import com.kelvinhado.padam.screens.common.mvcviews.ViewMvc;
 public interface TravelViewMvc extends ViewMvc {
 
     /**
+     * Try to avoid this situation but context is required for the cursor adapter
+     * @param context context
+     */
+    void setupViewWithContext(Context context);
+
+    /**
      * Populate spinner with stored addresses
      * @param addresses all stored addresses
      */
-    void bindAddressesData(SimpleCursorAdapter addresses);
+    void bindAddressesData(Cursor addresses);
 
     /**
      * Show details of a particular travel
@@ -26,7 +34,7 @@ public interface TravelViewMvc extends ViewMvc {
      * @param to arrival location
      * @param duration duration of the travel
      */
-    void showTravelDetails(Object from, Object to, float duration);
+    void showTravelDetails(Address from, Address to, float duration);
 
     /**
      * Set a listener that will be notified by this MVC view
@@ -48,6 +56,6 @@ public interface TravelViewMvc extends ViewMvc {
         /**
          * This callback will be invoked when "VALIDATE" button is being clicked
          */
-        void onButtonValidatedClicked(String selectedAddresses);
+        void onButtonValidatedClicked(Address address);
     }
 }

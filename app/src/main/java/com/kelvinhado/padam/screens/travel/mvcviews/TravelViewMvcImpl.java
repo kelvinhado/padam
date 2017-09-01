@@ -1,5 +1,7 @@
 package com.kelvinhado.padam.screens.travel.mvcviews;
 
+import android.content.Context;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.LayoutInflater;
@@ -13,6 +15,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.kelvinhado.padam.R;
+import com.kelvinhado.padam.data.AddressesContract;
+import com.kelvinhado.padam.data.models.Address;
 
 /**
  * Created by kelvin on 01/09/2017.
@@ -25,7 +29,9 @@ public class TravelViewMvcImpl implements TravelViewMvc, AdapterView.OnItemSelec
 
     private View mRootView;
     private TravelViewMvcListener mListener;
-    private String mSelectedAddress;
+    private SimpleCursorAdapter mAdapter;
+    private Cursor mAddressesCursor;
+    private Address mSelectedAddress;
 
     private Spinner mSpinnerAddresses;
     private Button mBtnValidate;
@@ -36,12 +42,11 @@ public class TravelViewMvcImpl implements TravelViewMvc, AdapterView.OnItemSelec
     public TravelViewMvcImpl(LayoutInflater inflater, ViewGroup container) {
         mRootView = inflater.inflate(R.layout.mvc_view_fragment_travel, container, false);
         initializeViews();
-        mSelectedAddress = "";
 
         mBtnValidate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mListener != null && !mSelectedAddress.isEmpty()) {
+                if (mListener != null && mSelectedAddress != null) {
                     mListener.onButtonValidatedClicked(mSelectedAddress);
                 }
             }
@@ -56,12 +61,26 @@ public class TravelViewMvcImpl implements TravelViewMvc, AdapterView.OnItemSelec
     }
 
     @Override
-    public void bindAddressesData(SimpleCursorAdapter addressesAdapter) {
-        mSpinnerAddresses.setAdapter(addressesAdapter);
+    public void setupViewWithContext(Context context) {
+        mAdapter = new SimpleCursorAdapter(
+                context,
+                android.R.layout.simple_spinner_item,
+                null,
+                new String[]{AddressesContract.AddressesEntry.COLUMN_ADDRESS_NAME},
+                new int[]{android.R.id.text1},
+                0);
+        mAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        mSpinnerAddresses.setAdapter(mAdapter);
     }
 
     @Override
-    public void showTravelDetails(Object from, Object to, float duration) {
+    public void bindAddressesData(Cursor addressesCursor) {
+        mAdapter.swapCursor(addressesCursor);
+        mAddressesCursor = addressesCursor;
+    }
+
+    @Override
+    public void showTravelDetails(Address from, Address to, float duration) {
         //TODO show travel details once calculated
     }
 
@@ -73,9 +92,14 @@ public class TravelViewMvcImpl implements TravelViewMvc, AdapterView.OnItemSelec
     // Spinner item selection_______________________________________________________________________
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id) {
-//        // TODO
-//        mSelectedAddress = (String) adapterView.getItemAtPosition(pos);
-//        Log.d("LOL", mSelectedAddress);
+        if (mAddressesCursor == null)
+            return;
+        mAddressesCursor.moveToPosition(pos);
+        int idU = mAddressesCursor.getInt(mAddressesCursor.getColumnIndex(AddressesContract.AddressesEntry._ID));
+        String name = mAddressesCursor.getString(mAddressesCursor.getColumnIndex(AddressesContract.AddressesEntry.COLUMN_ADDRESS_NAME));
+        Float lat = mAddressesCursor.getFloat(mAddressesCursor.getColumnIndex(AddressesContract.AddressesEntry.COLUMN_ADDRESS_LATITUDE));
+        Float lon = mAddressesCursor.getFloat(mAddressesCursor.getColumnIndex(AddressesContract.AddressesEntry.COLUMN_ADDRESS_LONGITUDE));
+        mSelectedAddress = new Address(idU, name, lat, lon);
     }
 
     @Override
