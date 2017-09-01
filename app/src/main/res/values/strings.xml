@@ -2,4 +2,8 @@
     <string name="app_name">Padam</string>
     <string name="button_label_validate">Valider</string>
     <string name="map_marker_title_destination">Votre Destination</string>
+
+    <string name="dialog_travel_title">Prêt à partir ?</string>
+    <string name="dialog_travel_information">La durée du trajet est de %1$s \n et la distance totale est de %2$s.</string>
+    <string name="dialog_travel_button_ok">Ok</string>
 </resources>

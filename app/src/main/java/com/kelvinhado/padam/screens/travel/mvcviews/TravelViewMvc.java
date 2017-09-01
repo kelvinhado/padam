@@ -26,10 +26,16 @@ public interface TravelViewMvc extends ViewMvc {
      * Show details of a particular travel
      * @param from departure location
      * @param to arrival location
-     * @param duration duration of the travel
-     * @param distance distance of the travel
      */
-    void showTravelDetails(Address from, Address to, PolylineOptions polyline, String duration, String distance);
+    void showTravelDetails(Address from, Address to, PolylineOptions polyline);
+
+    /**
+     * Show details of a particular travel
+     *
+     * @param duration travel duration
+     * @param distance distance duration
+     */
+    void showTravelPopupDetalils(String duration, String distance);
 
     /**
      * Set a listener that will be notified by this MVC view

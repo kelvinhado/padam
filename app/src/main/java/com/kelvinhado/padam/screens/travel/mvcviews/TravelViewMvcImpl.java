@@ -1,9 +1,11 @@
 package com.kelvinhado.padam.screens.travel.mvcviews;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.widget.SimpleCursorAdapter;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -83,7 +85,7 @@ public class TravelViewMvcImpl implements TravelViewMvc, AdapterView.OnItemSelec
     }
 
     @Override
-    public void showTravelDetails(Address from, Address to, PolylineOptions polylineOptions, String duration, String distance) {
+    public void showTravelDetails(Address from, Address to, PolylineOptions polylineOptions) {
         mGoogleMap.clear();
         mGoogleMap.addMarker(new MarkerOptions()
                 .position(from.getLatLng())
@@ -92,6 +94,20 @@ public class TravelViewMvcImpl implements TravelViewMvc, AdapterView.OnItemSelec
                 .position(to.getLatLng())
                 .title(to.getName()));
         mGoogleMap.addPolyline(polylineOptions);
+    }
+
+    @Override
+    public void showTravelPopupDetalils(String duration, String distance) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setTitle(R.string.dialog_travel_title);
+        builder.setMessage(mContext.getString(R.string.dialog_travel_information, duration, distance))
+                .setNeutralButton(R.string.dialog_travel_button_ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                });
+        builder.create();
+        builder.show();
     }
 
     @Override

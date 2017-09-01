@@ -3,6 +3,7 @@ package com.kelvinhado.padam.screens.travel.controllers;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
@@ -62,13 +63,18 @@ public class TravelFragment extends BaseFragment implements TravelViewMvc.Travel
         Log.d("TAG", url);
         DownloadTask downloadTask = new DownloadTask() {
             @Override
-            protected void onPostExecute(DownloadTaskResults result) {
+            protected void onPostExecute(final DownloadTaskResults result) {
                 super.onPostExecute(result);
-                mViewMvc.showTravelDetails(
-                        mDepartureAddress,
-                        mDestinationAddress,
-                        result.getPolylineOptions(),
-                        result.getDuration(), );
+                mViewMvc.showTravelDetails(mDepartureAddress, mDestinationAddress,
+                        result.getPolylineOptions());
+
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mViewMvc.showTravelPopupDetalils(result.getDuration(), result.getDistance());
+                    }
+                }, 500);
             }
         };
         // Start downloading json data from Google Directions API
