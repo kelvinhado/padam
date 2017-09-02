@@ -19,6 +19,7 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.kelvinhado.padam.R;
@@ -168,10 +169,11 @@ public class TravelViewMvcImpl implements TravelViewMvc, AdapterView.OnItemSelec
         mGoogleMap.clear();
         if (mSelectedAddress != null) {
             LatLng position = new LatLng(mSelectedAddress.getLatitude(), mSelectedAddress.getLongitude());
-            mGoogleMap.addMarker(new MarkerOptions()
+            Marker marker = mGoogleMap.addMarker(new MarkerOptions()
                     .position(position)
                     .title(mContext.getString(R.string.map_marker_title_departure))
                     .snippet(mSelectedAddress.getName()));
+            marker.showInfoWindow();
             mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(position, 12));
         }
     }
