@@ -18,3 +18,5 @@ GMAPS_API_KEY=YOUR_API_KEY
 - Google Directions API request 
 (http://www.journaldev.com/13373/android-google-map-drawing-route-two-points)
 - Spinner with CursorLoader 
+
+You can find the APK under [this link](app.apk)
