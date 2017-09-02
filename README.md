@@ -4,7 +4,7 @@
 
 To build the application you'll first need to specify your GoogleMaps API Key inside the *gradle.properties* file.
 ```
-GMAPS_API_KEY=AIzaSyC48PvxvHQjy5vg18L_9lNXGC9F7nUtTJE
+GMAPS_API_KEY=YOUR_API_KEY
 ```
 
 ### What's in the box ?
