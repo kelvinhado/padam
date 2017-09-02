@@ -1,7 +1,6 @@
 package com.kelvinhado.padam.screens.common.controllers;
 
-import android.content.ContentValues;
-import android.net.Uri;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -15,6 +14,8 @@ import android.view.MenuItem;
 
 import com.kelvinhado.padam.R;
 import com.kelvinhado.padam.data.AddressesContract;
+import com.kelvinhado.padam.data.models.Address;
+import com.kelvinhado.padam.data.utils.AddressUtils;
 import com.kelvinhado.padam.screens.common.mvcviews.RootViewMvcImpl;
 import com.kelvinhado.padam.screens.credits.controllers.CreditsFragment;
 import com.kelvinhado.padam.screens.travel.controllers.TravelFragment;
@@ -58,18 +59,25 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void initFakeDatabase() {
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(AddressesContract.AddressesEntry.COLUMN_ADDRESS_NAME, "27 Rue Oudinot, 75008 Paris, France");
-        contentValues.put(AddressesContract.AddressesEntry.COLUMN_ADDRESS_LATITUDE, 48.849355);
-        contentValues.put(AddressesContract.AddressesEntry.COLUMN_ADDRESS_LONGITUDE, 2.316055);
+        Cursor cursor = getContentResolver().query(AddressesContract.AddressesEntry.CONTENT_URI,
+                null,
+                null,
+                null,
+                AddressesContract.AddressesEntry._ID);
+        if(cursor == null) return;
 
-        ContentValues contentValues2 = new ContentValues();
-        contentValues2.put(AddressesContract.AddressesEntry.COLUMN_ADDRESS_NAME,
-                "9 Avenue du Plateau, 94100 Saint-Maur-des-Fossés, France");
-        contentValues2.put(AddressesContract.AddressesEntry.COLUMN_ADDRESS_LATITUDE, 48.808672);
-        contentValues2.put(AddressesContract.AddressesEntry.COLUMN_ADDRESS_LONGITUDE, 2.500076);
-        Uri uri = getContentResolver().insert(AddressesContract.AddressesEntry.CONTENT_URI, contentValues);
-        Uri uri2 = getContentResolver().insert(AddressesContract.AddressesEntry.CONTENT_URI, contentValues2);
+        if(!cursor.moveToFirst()) {
+            // instead duplicating call to insert, we could have implemented a bulkInsert with ContentValues[].
+            getContentResolver().insert(AddressesContract.AddressesEntry.CONTENT_URI,
+                    AddressUtils.toContentValues(new Address("27 Rue Oudinot, 75008 Paris, France", 48.849355, 2.316055)));
+            getContentResolver().insert(AddressesContract.AddressesEntry.CONTENT_URI,
+                    AddressUtils.toContentValues(new Address("9 Avenue du Plateau, 94100 Saint-Maur-des-Fossés, France", 48.808672, 2.500076)));
+            getContentResolver().insert(AddressesContract.AddressesEntry.CONTENT_URI,
+                    AddressUtils.toContentValues(new Address("58 Avenue Gambetta, 93170 Bagnolet, France", 48.874651, 2.421799)));
+            getContentResolver().insert(AddressesContract.AddressesEntry.CONTENT_URI,
+                    AddressUtils.toContentValues(new Address("20 Avenue Rachel, 75018 Paris, France", 48.885489, 2.331161)));
+        }
+
     }
 
     // FRAGMENT MANAGEMENT

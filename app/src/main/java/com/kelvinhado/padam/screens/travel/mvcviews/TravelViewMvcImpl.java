@@ -25,6 +25,7 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import com.kelvinhado.padam.R;
 import com.kelvinhado.padam.data.AddressesContract;
 import com.kelvinhado.padam.data.models.Address;
+import com.kelvinhado.padam.data.utils.AddressUtils;
 
 /**
  * Created by kelvin on 01/09/2017.
@@ -88,19 +89,21 @@ public class TravelViewMvcImpl implements TravelViewMvc, AdapterView.OnItemSelec
 
     @Override
     public void showTravelDetails(Address from, Address to, PolylineOptions polylineOptions) {
+        LatLng departurePosition = AddressUtils.toLatLng(from);
+        LatLng destinationPosition = AddressUtils.toLatLng(to);
         mGoogleMap.clear();
         mGoogleMap.addMarker(new MarkerOptions()
-                .position(from.getLatLng())
+                .position(departurePosition)
                 .title(from.getName()));
         mGoogleMap.addMarker(new MarkerOptions()
-                .position(to.getLatLng())
+                .position(destinationPosition)
                 .title(to.getName()));
         mGoogleMap.addPolyline(polylineOptions);
 
         // move camera
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
-        builder.include(from.getLatLng());
-        builder.include(to.getLatLng());
+        builder.include(departurePosition);
+        builder.include(destinationPosition);
         LatLngBounds bounds = builder.build();
         mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));
     }

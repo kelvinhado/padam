@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import com.kelvinhado.padam.R;
 import com.kelvinhado.padam.data.AddressesContract;
 import com.kelvinhado.padam.data.models.Address;
+import com.kelvinhado.padam.data.utils.AddressUtils;
 import com.kelvinhado.padam.network.direction.DownloadTask;
 import com.kelvinhado.padam.screens.common.controllers.BaseFragment;
 import com.kelvinhado.padam.screens.travel.mvcviews.TravelViewMvc;
@@ -60,7 +61,8 @@ public class TravelFragment extends BaseFragment implements TravelViewMvc.Travel
     @Override
     public void onButtonValidatedClicked(Address address) {
         mDepartureAddress = address;
-        String url = getDirectionsUrl(mDepartureAddress.getLatLng(), mDestinationAddress.getLatLng());
+        String url = getDirectionsUrl(AddressUtils.toLatLng(mDepartureAddress),
+                AddressUtils.toLatLng(mDestinationAddress));
         Log.d("TAG", url);
         DownloadTask downloadTask = new DownloadTask() {
             @Override
