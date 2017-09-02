@@ -3,9 +3,13 @@ package com.kelvinhado.padam.screens.common.controllers;
 import android.content.ContentValues;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.kelvinhado.padam.R;
 import com.kelvinhado.padam.data.AddressesContract;
@@ -13,20 +17,26 @@ import com.kelvinhado.padam.screens.common.mvcviews.RootViewMvcImpl;
 import com.kelvinhado.padam.screens.travel.controllers.TravelFragment;
 
 public class MainActivity extends AppCompatActivity
-        implements BaseFragment.AbstractFragmentCallback {
+        implements BaseFragment.AbstractFragmentCallback, NavigationView.OnNavigationItemSelectedListener {
 
     RootViewMvcImpl mRootViewMvc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        initFakeDatabase();
         // Instantiate MVC view associated with this activity
         mRootViewMvc = new RootViewMvcImpl(this, null);
-
         // Set the root view of the associated MVC view as the content of this activity
         setContentView(mRootViewMvc.getRootView());
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        initFakeDatabase();
+
+
+
+
 
         // Show the default fragment if the application is not restored
         if (savedInstanceState == null) {
@@ -54,7 +64,6 @@ public class MainActivity extends AppCompatActivity
     public void replaceFragment(Class<? extends Fragment> claz, boolean addToBackStack, Bundle args) {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 
-
         Fragment newFragment;
 
         try {
@@ -77,6 +86,26 @@ public class MainActivity extends AppCompatActivity
         // Change to a new fragment
         ft.replace(R.id.frame_contents, newFragment, claz.getClass().getSimpleName());
         ft.commit();
+    }
+
+    /**
+     * Triggered when an item is selected in the drawer layout
+     * @param item item selected
+     * @return boolean
+     */
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.btn_redirect_home:
+                replaceFragment(TravelFragment.class, false, null);
+                break;
+            case R.id.btn_redirect_credits:
+                Toast.makeText(this, "another", Toast.LENGTH_SHORT).show();
+                break;
+            default:
+                return false;
+        }
+        return true;
     }
     // END FRAGMENT MANAGEMENT
 }

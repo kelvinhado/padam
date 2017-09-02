@@ -9,6 +9,8 @@
     <string name="tv_travel_departure">Adresse de départ :</string>
     <string name="tv_travel_destination">Adresse d\'arrivée :</string>
     <string name="travel_destination_address">46 quai de la Rapée, 75012 Paris</string>
+    <string name="drawer_item_redirect_home">Mon trajet</string>
+    <string name="drawer_item_redirect_credits">Crédits</string>
 
     <string-array name="spinner_destination_items">
         <item>@string/travel_destination_address</item>

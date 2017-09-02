@@ -20,7 +20,7 @@ public class RootViewMvcImpl implements ViewMvc {
     private View mRootView;
 
     public RootViewMvcImpl(Context context, ViewGroup container) {
-        mRootView = LayoutInflater.from(context).inflate(R.layout.mvc_view_frame_layout, container);
+        mRootView = LayoutInflater.from(context).inflate(R.layout.mvc_view_activity_main, container);
     }
 
     @Override
