@@ -22,4 +22,21 @@
 
     <string name="app_author_name" translatable="false">Kelvin Hado</string>
     <string name="app_author_email" translatable="false">kelvin.hado@gmail.com</string>
+
+    <string name="app_author_description">
+        Bonjour, mon nom est Kelvin Hado, développeur Android ! \nCi-dessous vous trouverez des
+        liens vers différents sites qui m\'ont aidé à faire cette mini-app :)
+    </string>
+    <string-array name="author_web_sources">
+        <item>https://stackoverflow.com/questions/12434413/how-to-populate-spinner-from-cursorloader</item>
+        <item>http://www.journaldev.com/13373/android-google-map-drawing-route-two-points</item>
+        <item>https://developers.google.com/maps/documentation/javascript/directions#DirectionsResults</item>
+        <item>https://developer.android.com/guide/topics/providers/content-providers.html</item>
+        <item>https://developer.android.com/training/implementing-navigation/nav-drawer.html</item>
+        <item>https://developer.android.com/reference/android/support/design/widget/NavigationView.html</item>
+        <item>http://windrealm.org/tutorials/android/drawerlayout-example.php</item>
+        <item>https://www.techyourchance.com/mvp-mvc-android-1/</item>
+        <item>https://github.com/kelvinhado/Android-ToolBox</item>
+    </string-array>
+
 </resources>
