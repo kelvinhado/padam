@@ -22,9 +22,10 @@
         </activity>
 
         <provider
-            android:name="com.kelvinhado.padam.data.AddressesContentProvider"
+            android:name=".data.AddressesContentProvider"
             android:authorities="com.kelvinhado.padam"
             android:exported="false" />
+
     </application>
 
 </manifest>

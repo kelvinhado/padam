@@ -7,23 +7,24 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.kelvinhado.padam.R;
 import com.kelvinhado.padam.data.AddressesContract;
 import com.kelvinhado.padam.screens.common.mvcviews.RootViewMvcImpl;
+import com.kelvinhado.padam.screens.credits.controllers.CreditsFragment;
 import com.kelvinhado.padam.screens.travel.controllers.TravelFragment;
 
 public class MainActivity extends AppCompatActivity
         implements BaseFragment.AbstractFragmentCallback, NavigationView.OnNavigationItemSelectedListener {
 
     private RootViewMvcImpl mRootViewMvc;
-    private ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle mDrawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,18 +35,24 @@ public class MainActivity extends AppCompatActivity
         setContentView(mRootViewMvc.getRootView());
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        // These lines are needed to display the top-left hamburger button
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        // Make the hamburger button work
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
+                R.string.app_name, R.string.app_name);
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+        mDrawerToggle.syncState();
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
 
         initFakeDatabase();
 
-
-
-
-
         // Show the default fragment if the application is not restored
         if (savedInstanceState == null) {
+            navigationView.setCheckedItem(R.id.btn_redirect_home);
             replaceFragment(TravelFragment.class, false, null);
         }
     }
@@ -93,6 +100,7 @@ public class MainActivity extends AppCompatActivity
         ft.replace(R.id.frame_contents, newFragment, claz.getClass().getSimpleName());
         ft.commit();
     }
+    // END FRAGMENT MANAGEMENT
 
     /**
      * Triggered when an item is selected in the drawer layout
@@ -106,12 +114,39 @@ public class MainActivity extends AppCompatActivity
                 replaceFragment(TravelFragment.class, false, null);
                 break;
             case R.id.btn_redirect_credits:
-                Toast.makeText(this, "another", Toast.LENGTH_SHORT).show();
+                replaceFragment(CreditsFragment.class, false, null);
                 break;
             default:
                 return false;
         }
+        mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
-    // END FRAGMENT MANAGEMENT
+
+    @Override
+    public void onBackPressed() {
+        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            mDrawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        // Sync the toggle state after onRestoreInstanceState has occurred.
+        mDrawerToggle.syncState();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Pass the event to ActionBarDrawerToggle, if it returns
+        // true, then it has handled the app icon touch event
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        // Handle your other action bar items...
+        return super.onOptionsItemSelected(item);
+    }
 }

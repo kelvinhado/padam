@@ -15,4 +15,11 @@
     <string-array name="spinner_destination_items">
         <item>@string/travel_destination_address</item>
     </string-array>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="app_author_name" translatable="false">Kelvin Hado</string>
+    <string name="app_author_email" translatable="false">kelvin.hado@gmail.com</string>
 </resources>
