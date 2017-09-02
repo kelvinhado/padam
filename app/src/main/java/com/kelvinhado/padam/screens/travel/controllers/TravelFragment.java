@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.kelvinhado.padam.R;
 import com.kelvinhado.padam.data.AddressesContract;
 import com.kelvinhado.padam.data.models.Address;
 import com.kelvinhado.padam.network.direction.DownloadTask;
@@ -45,7 +46,7 @@ public class TravelFragment extends BaseFragment implements TravelViewMvc.Travel
         mViewMvc.setListener(this);
         getLoaderManager().initLoader(ID_ADDRESSES_LOADER, null, this);
 
-        mDestinationAddress = new Address(0, "46 quai de la Rapée, 75012 Paris", 48.841978, 2.372773700000039);
+        mDestinationAddress = new Address(0, getString(R.string.travel_destination_address), 48.841978, 2.372773700000039);
 
         return mViewMvc.getRootView();
     }

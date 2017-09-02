@@ -3,23 +3,52 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/tv_departure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/sp_departure_addresses"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/sp_departure_addresses"
+        android:layout_marginTop="34dp"
+        android:text="@string/tv_travel_departure" />
+
     <Spinner
-        android:id="@+id/sp_addresses"
+        android:id="@+id/sp_departure_addresses"
         android:layout_width="match_parent"
         android:layout_height="@dimen/common_view_height"
         android:layout_marginEnd="@dimen/common_view_side_margin"
         android:layout_marginStart="@dimen/common_view_side_margin"
         android:layout_marginTop="@dimen/common_first_view_top_margin" />
 
+    <TextView
+        android:id="@+id/tv_destination"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/sp_departure_addresses"
+        android:layout_alignStart="@+id/sp_departure_addresses"
+        android:layout_below="@id/sp_departure_addresses"
+        android:layout_marginTop="@dimen/common_tv_space"
+        android:text="@string/tv_travel_destination" />
+
+    <Spinner
+        android:id="@+id/sp_destination_addresses"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_view_height"
+        android:layout_below="@id/tv_destination"
+        android:layout_marginEnd="@dimen/common_view_side_margin"
+        android:layout_marginStart="@dimen/common_view_side_margin"
+        android:entries="@array/spinner_destination_items" />
+
     <Button
         android:id="@+id/bt_validate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/sp_addresses"
-        android:layout_alignLeft="@+id/sp_addresses"
-        android:layout_alignRight="@+id/sp_addresses"
-        android:layout_alignStart="@+id/sp_addresses"
-        android:layout_below="@+id/sp_addresses"
+        android:layout_alignEnd="@+id/sp_departure_addresses"
+        android:layout_alignLeft="@+id/sp_departure_addresses"
+        android:layout_alignRight="@+id/sp_departure_addresses"
+        android:layout_alignStart="@+id/sp_departure_addresses"
+        android:layout_below="@+id/sp_destination_addresses"
         android:layout_marginTop="@dimen/common_view_space"
         android:text="@string/button_label_validate" />
 

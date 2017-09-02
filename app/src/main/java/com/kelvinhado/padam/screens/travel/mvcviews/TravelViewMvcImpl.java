@@ -75,7 +75,7 @@ public class TravelViewMvcImpl implements TravelViewMvc, AdapterView.OnItemSelec
     }
 
     private void initializeViews() {
-        mSpinnerAddresses = (Spinner) mRootView.findViewById(R.id.sp_addresses);
+        mSpinnerAddresses = (Spinner) mRootView.findViewById(R.id.sp_departure_addresses);
         mBtnValidate = (Button) mRootView.findViewById(R.id.bt_validate);
     }
 
@@ -164,7 +164,7 @@ public class TravelViewMvcImpl implements TravelViewMvc, AdapterView.OnItemSelec
         mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 10));
     }
 
-    public void animateMapCameraToSelectedAddress() {
+    private void animateMapCameraToSelectedAddress() {
         mGoogleMap.clear();
         if (mSelectedAddress != null) {
             LatLng position = new LatLng(mSelectedAddress.getLatitude(), mSelectedAddress.getLongitude());

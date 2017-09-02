@@ -6,4 +6,11 @@
     <string name="dialog_travel_title">Prêt à partir ?</string>
     <string name="dialog_travel_information">La durée du trajet est de %1$s \net la distance totale est de %2$s. \nBon voyage !</string>
     <string name="dialog_travel_button_ok">Ok</string>
+    <string name="tv_travel_departure">Adresse de départ :</string>
+    <string name="tv_travel_destination">Adresse d\'arrivée :</string>
+    <string name="travel_destination_address">46 quai de la Rapée, 75012 Paris</string>
+
+    <string-array name="spinner_destination_items">
+        <item>@string/travel_destination_address</item>
+    </string-array>
 </resources>
