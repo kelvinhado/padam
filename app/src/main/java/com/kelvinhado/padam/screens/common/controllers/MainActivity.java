@@ -7,6 +7,8 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -19,7 +21,9 @@ import com.kelvinhado.padam.screens.travel.controllers.TravelFragment;
 public class MainActivity extends AppCompatActivity
         implements BaseFragment.AbstractFragmentCallback, NavigationView.OnNavigationItemSelectedListener {
 
-    RootViewMvcImpl mRootViewMvc;
+    private RootViewMvcImpl mRootViewMvc;
+    private ActionBarDrawerToggle mDrawerToggle;
+    private DrawerLayout mDrawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +33,10 @@ public class MainActivity extends AppCompatActivity
         // Set the root view of the associated MVC view as the content of this activity
         setContentView(mRootViewMvc.getRootView());
 
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
 
         initFakeDatabase();
 

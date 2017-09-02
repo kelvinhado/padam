@@ -4,7 +4,7 @@
         <item
             android:id="@+id/btn_redirect_home"
             android:checked="false"
-            android:icon="@drawable/ic"
+            android:icon="@drawable/ic_audiotrack_dark"
             android:title="@string/drawer_item_redirect_home" />
         <item
             android:id="@+id/btn_redirect_credits"
