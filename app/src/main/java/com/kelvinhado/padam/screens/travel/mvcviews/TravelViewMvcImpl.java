@@ -69,10 +69,10 @@ public class TravelViewMvcImpl implements TravelViewMvc, AdapterView.OnItemSelec
                 mContext,
                 android.R.layout.simple_spinner_item,
                 null,
-                new String[]{AddressesContract.AddressesEntry.COLUMN_ADDRESS_NAME},
-                new int[]{android.R.id.text1},
+                new String[]{ AddressesContract.AddressesEntry.COLUMN_ADDRESS_NAME },
+                new int[]{ android.R.id.text1 },
                 0);
-        mAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        mAdapter.setDropDownViewResource(R.layout.spinner_item);
         mSpinnerAddresses.setAdapter(mAdapter);
     }
 
@@ -169,6 +169,8 @@ public class TravelViewMvcImpl implements TravelViewMvc, AdapterView.OnItemSelec
     }
 
     private void animateMapCameraToSelectedAddress() {
+        if(mGoogleMap == null) return;
+
         mGoogleMap.clear();
         if (mSelectedAddress != null) {
             LatLng position = new LatLng(mSelectedAddress.getLatitude(), mSelectedAddress.getLongitude());
