@@ -20,3 +20,10 @@ GMAPS_API_KEY=YOUR_API_KEY
 - Spinner with CursorLoader 
 
 You can find the APK under [this link](app.apk)
+
+### Screenshots
+
+![alt text](screenshots/padam_main.png)
+![alt text](screenshots/padam_drawer.png)
+![alt text](screenshots/padam_trajet_drawn.png)
+![alt text](screenshots/padam_trajet_popup.png)
